@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./public/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./public/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./public/favicon-16x16.png" />
+    <meta name="twitter:card" content="website" />
+    <meta name="twitter:site" content="@alecanl" />
+    <meta name="twitter:title" content="50 Projects" />
+    <meta name="twitter:description" content="50 PRojects" />
+    <!-- <meta
+      name="twitter:image"
+      content="https://github.com/AlecANL/devfinder/raw/main/public/dark-design.png"
+    /> -->
+    <meta name="twitter:creator" content="@alecanl" />
+    <meta name="description" content="50 Projects" />
+    <meta property="og:title" content="50 Projects" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="50 Projects" />
+    <!-- <meta property="og:url" content="https://devfinder-v1.netlify.app/" /> -->
+    <!-- <meta
+      property="og:image"
+      content="https://github.com/AlecANL/devfinder/raw/main/public/dark-design.png"
+    /> -->
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.8.11/tailwind.min.css"
+      integrity="sha512-KO1h5ynYuqsFuEicc7DmOQc+S9m2xiCKYlC3zcZCSEw0RGDsxcMnppRaMZnb0DdzTDPaW22ID/gAGCZ9i+RT/w=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <title>Home</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .body {
+        background: #efefbb;
+        background: linear-gradient(to right, #d4d3dd, #efefbb);
+        font-family: 'Open Sans', sans-serif;
+        /* display: flex; */
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        block-size: 100vh;
+        overflow: hidden;
+        padding: 10px;
+      }
+      .wrapper {
+        max-inline-size: 1200px;
+        margin: 0 auto;
+      }
+
+      .projects-content {
+        max-inline-size: 500px;
+        background-color: #fff;
+        border-radius: 4px;
+        margin: 0 auto;
+        max-block-size: 500px;
+        overflow: auto;
+      }
+      .project {
+        display: grid;
+        grid-template-columns: 50px 1fr;
+        border-block-end: 1px solid hsla(0, 1%, 74%, 0.37);
+      }
+      .project span {
+        align-self: center;
+        justify-self: center;
+      }
+      .project div {
+        display: flex;
+        padding: 1.5rem 2rem;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      .project h3 {
+        font-weight: bold;
+      }
+      .project a {
+        color: rgb(55, 91, 255);
+      }
+
+      .projects-content::-webkit-scrollbar {
+        width: 10px;
+      }
+      .projects-content::-webkit-scrollbar-track {
+        background-color: #efefef;
+      }
+      .projects-content::-webkit-scrollbar-thumb {
+        background-color: #999999;
+        border-radius: 10px;
+        block-size: 3.125rem;
+      }
+
+      h1 {
+        text-align: center;
+        margin-block: 2rem;
+        font-size: 2rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+      }
+
+      @media screen and (min-width: 768px) {
+        .project div {
+          justify-content: space-between;
+          flex-direction: row;
+        }
+        h1 {
+          font-size: 3rem;
+        }
+        .projects-content {
+          max-block-size: 700px;
+        }
+      }
+    </style>
+  </head>
+  <body class="body">
+    <div class="wrapper">
+      <main>
+        <h1>50 Projects 🚀</h1>
+        <section class="projects-content" id="projects"></section>
+      </main>
+    </div>
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>

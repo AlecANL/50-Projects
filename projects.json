@@ -1,0 +1,202 @@
+[
+  {
+    "name": "Expanding Cards",
+    "url": "./01-expanding-cards"
+  },
+  {
+    "name": "Progress Steps",
+    "url": "./02-progress-steps"
+  },
+  {
+    "name": "Rotating Navigation Animation",
+    "url": "./03-rotating-navigation"
+  },
+  {
+    "name": "Hidden Search Widget",
+    "url": "./04-hidden-search-widget"
+  },
+  {
+    "name": "Blurry Loading",
+    "url": "./05-blurry-image"
+  },
+  {
+    "name": "Scroll Animation",
+    "url": "./06-scroll-animation"
+  },
+  {
+    "name": "Split Landing Page",
+    "url": "./07-split-landige-page"
+  },
+  {
+    "name": "Form Wave",
+    "url": "./08-form-wave-animation"
+  },
+  {
+    "name": "Sound Board",
+    "url": "./09-sound-board"
+  },
+  {
+    "name": "Dad Jokes",
+    "url": "./10-dad-jokes"
+  },
+  {
+    "name": "Event Keycodes",
+    "url": "./11-event-key-codes"
+  },
+  {
+    "name": "Faq Collapse",
+    "url": "./12-faq-collapse"
+  },
+  {
+    "name": "Random Choice Picker",
+    "url": "./13-random-choice"
+  },
+  {
+    "name": "Animated Navigation",
+    "url": "./14-animated-navigation"
+  },
+  {
+    "name": "Incrementing Counter",
+    "url": "./15-incrementing-counter"
+  },
+  {
+    "name": "Drink Water",
+    "url": "./16-drink-water"
+  },
+  {
+    "name": "Movie App",
+    "url": "./17-movie-app"
+  },
+  {
+    "name": "Background Slider",
+    "url": "./18-background-slider"
+  },
+  {
+    "name": "Theme Clock",
+    "url": "./19-theme-clock"
+  },
+  {
+    "name": "Button Ripple Effect",
+    "url": "./20-ripple-button"
+  },
+  {
+    "name": "Drag N Drop",
+    "url": "./21-DragNDrop"
+  },
+  {
+    "name": "Drawing App",
+    "url": "./22-Drawing-app"
+  },
+  {
+    "name": "Kinetic Loader",
+    "url": "./23-kinetic-loader"
+  },
+  {
+    "name": "Content Placeholder",
+    "url": "./24-skeleton"
+  },
+  {
+    "name": "Sticky Navbar",
+    "url": "./25-sticky-navbar"
+  },
+  {
+    "name": "Double Vertical Slider",
+    "url": "./26-vertical-slider"
+  },
+  {
+    "name": "Toast Notification",
+    "url": "./27-toast-notification"
+  },
+  {
+    "name": "Github Profiles",
+    "url": "./28-github-user"
+  },
+  {
+    "name": "Double Click Heart",
+    "url": "./29-double-heart"
+  },
+  {
+    "name": "Auto Text Effect",
+    "url": "./30-auto-text-effect"
+  },
+  {
+    "name": "Password Generator",
+    "url": "./31-password-generator"
+  },
+  {
+    "name": "Good Cheap Fast",
+    "url": "./32-good-cheap-fast"
+  },
+  {
+    "name": "Notes App",
+    "url": "./33-notes-app"
+  },
+  {
+    "name": "Animated Countdown",
+    "url": "./34-animated-countdown"
+  },
+  {
+    "name": "Image Carousel",
+    "url": "./35-image-carousel"
+  },
+  {
+    "name": "Hoverboard",
+    "url": "./36-hoverboard"
+  },
+  {
+    "name": "Pokedex",
+    "url": "./37-pokedex"
+  },
+  {
+    "name": "Mobile Tab Navigation",
+    "url": "./38-Mobile-tab-navigation"
+  },
+  {
+    "name": "Password Strength Background",
+    "url": "./39-password-strength"
+  },
+  {
+    "name": "3d Background Boxes",
+    "url": "./40-3d-boxes"
+  },
+  {
+    "name": "Verify Account Ui",
+    "url": "./41-verify-account"
+  },
+  {
+    "name": "Live User Filter",
+    "url": "./42-live-user-filter"
+  },
+  {
+    "name": "Feedback Ui Design",
+    "url": "./43-feedback-ui"
+  },
+  {
+    "name": "Custom Range Slider",
+    "url": "./44-custom-range"
+  },
+  {
+    "name": "Netflix Mobile Navigation",
+    "url": "./45-netflix-mobile-nav"
+  },
+  {
+    "name": "Quiz App",
+    "url": "./46-quizz"
+  },
+  {
+    "name": "Random Image Feed",
+    "url": "./47-testimonial-box-switcher"
+  },
+  {
+    "name": "Random Image Feed",
+    "url": "./48-random-images"
+  },
+  {
+    "name": "Todo List",
+    "url": "./49-todo-list"
+  },
+  {
+    "name": "Insect Catch Game",
+    "url": "./50-insect-catch"
+  }
+]
