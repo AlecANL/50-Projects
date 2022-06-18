@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <title>Hidden Search widget</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      .body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        block-size: 100vh;
+        font-family: 'Mulish', sans-serif;
+        background-image: linear-gradient(90deg, #7d5fff, #7158e2);
+      }
+      .search {
+        position: relative;
+        block-size: 3.125rem;
+      }
+      .input-search {
+        background-color: #fff;
+        border-color: transparent;
+        font-size: 1.125rem;
+        padding: 1rem;
+        block-size: 3.125rem;
+        inline-size: 3.125rem;
+        transition: inline-size 0.3s ease;
+      }
+      button {
+        background-color: #fff;
+        border-color: transparent;
+        cursor: pointer;
+        font-size: 1.5rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        block-size: 3.125rem;
+        inline-size: 3.125rem;
+        transition: transform 0.3s ease;
+      }
+      .search.is-active .input-search {
+        inline-size: 12.5rem;
+      }
+      .search.is-active button {
+        transform: translateX(12.5rem);
+      }
+    </style>
+  </head>
+  <body class="body">
+    <div class="search">
+      <input
+        class="input-search"
+        placeholder="search..."
+        type="search"
+        name="search"
+        id="search"
+        aria-label="search toggle"
+      />
+      <button class="fas fa-search"></button>
+    </div>
+    <script>
+      const $search = document.querySelector('.search')
+      const $button = document.querySelector('button')
+      const $input = document.querySelector('.input-search')
+
+      $button.addEventListener('click', () => {
+        $search.classList.toggle('is-active')
+        $input.focus()
+      })
+    </script>
+  </body>
+</html>

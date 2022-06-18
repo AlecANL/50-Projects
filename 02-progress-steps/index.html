@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Progress Steps</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+      * {
+        box-sizing: border-box;
+      }
+
+      :root {
+        --inline-border-fill: 21.875rem;
+        --inline-size: 0%;
+      }
+
+      body {
+        font-family: 'Muli', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        overflow: hidden;
+        margin: 0;
+      }
+      .container {
+        text-align: center;
+      }
+      .progress-container {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        inline-size: 21.875rem;
+        margin-block-end: 1.875rem;
+      }
+      .progress {
+        background-color: #3498db;
+        position: absolute;
+        inset-block-start: 50%;
+        inset-inline-start: 0;
+        height: 0.25rem;
+        inline-size: var(--inline-size);
+        transform: translateY(-50%);
+        z-index: -1;
+        transition: 0.4s ease;
+      }
+      .progress-container::before {
+        background-color: #e0e0e0;
+        position: absolute;
+        content: '';
+        inset-block-start: 50%;
+        inset-inline-start: 0;
+        height: 0.25rem;
+        inline-size: 100%;
+        transform: translateY(-50%);
+        z-index: -1;
+      }
+      .circle {
+        background-color: #fff;
+        color: #9999;
+        border-radius: 50%;
+        block-size: 1.875rem;
+        inline-size: 1.875rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 3px solid #e0e0e0;
+        transition: 0.4s ease;
+      }
+      .circle.is-active {
+        border-color: #3498db;
+      }
+      .btn {
+        background-color: #3498db;
+        border-color: transparent;
+        padding-inline: 1.5rem;
+        padding-block: 0.875rem;
+        border-radius: 0.375rem;
+        font-weight: bold;
+        font-size: 0.875rem;
+        color: #fff;
+        margin-inline: 0.5rem;
+        cursor: pointer;
+      }
+      .btn:not(:disabled):active {
+        transform: scale(0.95);
+      }
+      .btn:disabled {
+        background-color: #999;
+        color: #e0e0e0;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="progress-container">
+        <div class="progress" id="progress"></div>
+        <div class="circle is-active">1</div>
+        <div class="circle">2</div>
+        <div class="circle">3</div>
+        <div class="circle">4</div>
+      </div>
+      <button class="btn" id="prev" disabled>Prev</button>
+      <button class="btn" id="next">Next</button>
+    </div>
+    <script>
+      const progress = document.getElementById('progress')
+      const prev = document.getElementById('prev')
+      const next = document.getElementById('next')
+      const circles = document.querySelectorAll('.circle')
+
+      let currentActive = 1
+
+      next.addEventListener('click', () => {
+        currentActive++
+        if (currentActive > circles.length) {
+          currentActive = circles.length
+        }
+        updateActiveCircle()
+      })
+
+      prev.addEventListener('click', () => {
+        currentActive--
+        if (currentActive < 1) {
+          currentActive = 1
+        }
+        updateActiveCircle()
+      })
+
+      function updateActiveCircle() {
+        circles.forEach((circle, idx) => {
+          if (idx < currentActive) {
+            circle.classList.add('is-active')
+          } else {
+            circle.classList.remove('is-active')
+          }
+        })
+
+        updatePrevDisabledSate()
+        updateNextDisabledSate()
+      }
+
+      function updatePrevDisabledSate() {
+        const actives = document.querySelectorAll('.is-active')
+        updateProgress(actives)
+        prev.disabled = currentActive <= 1 ? true : false
+      }
+
+      function updateNextDisabledSate() {
+        const actives = document.querySelectorAll('.is-active')
+        updateProgress(actives)
+        next.disabled = currentActive >= 4 ? true : false
+      }
+
+      function updateProgress(stepsActive) {
+        const progress = ((stepsActive.length - 1) / (circles.length - 1)) * 100
+        document.documentElement.style.setProperty('--inline-size', `${progress}%`)
+      }
+    </script>
+  </body>
+</html>

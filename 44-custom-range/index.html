@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.8.11/tailwind.min.css"
+      integrity="sha512-KO1h5ynYuqsFuEicc7DmOQc+S9m2xiCKYlC3zcZCSEw0RGDsxcMnppRaMZnb0DdzTDPaW22ID/gAGCZ9i+RT/w=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <title>Custom Range Slider</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .body {
+        background: #efefbb;
+        background: linear-gradient(to right, #d4d3dd, #efefbb);
+        font-family: 'Open Sans', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        block-size: 100vh;
+        overflow: hidden;
+      }
+      h2 {
+        position: absolute;
+        top: 10px;
+      }
+
+      .range-container {
+        position: relative;
+      }
+
+      input[type='range'] {
+        inline-size: 300px;
+        margin: 18px 0;
+        appearance: none;
+      }
+
+      input[type='range'] + label {
+        background-color: #fff;
+        position: absolute;
+        top: -25px;
+        left: 110px;
+        inline-size: 80px;
+        text-align: center;
+        border-radius: 4px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      }
+
+      input[type='range']::-webkit-slider-runnable-track {
+        background-color: palevioletred;
+        border-radius: 4px;
+        inline-size: 100%;
+        block-size: 10px;
+        cursor: pointer;
+      }
+
+      input[type='range']::-webkit-slider-thumb {
+        appearance: none;
+        block-size: 24px;
+        inline-size: 24px;
+        background-color: #fff;
+        border-radius: 50%;
+        border: 1px solid purple;
+        cursor: pointer;
+        margin-top: -7px;
+      }
+    </style>
+  </head>
+  <body class="body">
+    <h2>Custom Range Slider</h2>
+    <div class="range-container">
+      <input type="range" name="slider" id="range" min="0" max="100" aria-label="range" />
+      <label for="range">50</label>
+    </div>
+    <script>
+      const range = document.getElementById('range')
+
+      range.addEventListener('input', e => {
+        const value = +e.target.value
+        const label = e.target.nextElementSibling
+
+        const range_width = getComputedStyle(e.target).getPropertyValue('width')
+        const label_width = getComputedStyle(label).getPropertyValue('width')
+
+        const num_width = +range_width.substring(0, range_width.length - 2)
+        const num_label_width = +label_width.substring(0, label_width.length - 2)
+
+        const max = +e.target.max
+        const min = +e.target.min
+
+        const left = value * (num_width / max) - num_label_width / 2 + scale(value, min, max, 10, -10)
+
+        label.style.left = `${left}px`
+
+        label.innerHTML = value
+      })
+
+      // https://stackoverflow.com/questions/10756313/javascript-jquery-map-a-range-of-numbers-to-another-range-of-numbers
+      const scale = (num, in_min, in_max, out_min, out_max) => {
+        return ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min
+      }
+    </script>
+  </body>
+</html>

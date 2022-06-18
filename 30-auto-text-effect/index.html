@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <title>Auto Text Effect</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .body {
+        font-family: 'Open Sans', sans-serif;
+        block-size: 100vh;
+        color: #333;
+        display: flex;
+        background-color: darksalmon;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        block-size: 100vh;
+        padding: 0.625rem;
+        overflow: hidden;
+      }
+
+      div {
+        position: absolute;
+        bottom: 1.25rem;
+        background-color: rgba(0, 0, 0, 0.1);
+        padding: 10px 20px;
+        font-size: 1.125rem;
+      }
+
+      input {
+        inline-size: 3.125rem;
+        padding: 0.3125rem;
+        font-size: 1.125rem;
+        background-color: darksalmon;
+        border-color: transparent;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body class="body">
+    <h1 id="text">Starting...</h1>
+
+    <div>
+      <label for="speed">Speed: </label>
+      <input type="number" name="speed" id="speed" aria-label="speed" min="1" max="5" step="1" />
+    </div>
+    <script>
+      const $text = document.getElementById('text')
+      const $speed = document.getElementById('speed')
+
+      const text = 'We love programming!!'
+      let idx = 1
+      let speed = 300
+
+      function writeText() {
+        $text.textContent = text.slice(0, idx)
+
+        idx++
+        if (idx > text.length) {
+          idx = 1
+        }
+
+        setTimeout(writeText, speed)
+      }
+
+      writeText()
+
+      $speed.addEventListener('input', e => {
+        speed = 300 / e.target.value
+      })
+    </script>
+  </body>
+</html>

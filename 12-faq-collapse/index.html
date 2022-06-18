@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@500;600&family=Quicksand:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>FAQ. collapse</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .body {
+        font-family: 'Mulish', sans-serif;
+        background-color: #686de0;
+      }
+      h1 {
+        margin: 50px 0 1.875rem;
+        text-align: center;
+      }
+      .faq-container {
+        max-inline-size: 37.5rem;
+        margin-inline: auto;
+      }
+      .faq {
+        background-color: transparent;
+        padding: 1rem;
+        background-color: #fff;
+        margin: 0.625rem;
+        border-radius: 0.5rem;
+        position: relative;
+        overflow: hidden;
+        transition: 0.3s ease;
+      }
+      .faq-title {
+        margin: 0 35px 0 0;
+      }
+      .faq.is-active {
+        background-color: rgb(255, 178, 178);
+      }
+      .faq-text {
+        display: none;
+        margin: 1.875rem 0 0;
+      }
+      .faq.is-active .faq-text {
+        display: block;
+      }
+      button {
+        position: absolute;
+        inset-block-start: 15px;
+        inset-inline-end: 1.875rem;
+        background-color: transparent;
+        border-color: transparent;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        padding: 0;
+        inline-size: 1.875rem;
+        block-size: 1.875rem;
+      }
+      button .fa-times {
+        display: none;
+      }
+      .faq.is-active button .fa-times {
+        display: block;
+      }
+      .faq.is-active button .fa-chevron-down {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="body">
+    <h1>Frequently Asked Questions</h1>
+    <div class="faq-container">
+      <div class="faq is-active">
+        <h3 class="faq-title">Why should't we trust atoms?</h3>
+        <p class="faq-text">They make up everything</p>
+        <button>
+          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="faq">
+        <h3 class="faq-title">Why should't we trust atoms?</h3>
+        <p class="faq-text">They make up everything</p>
+        <button>
+          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="faq">
+        <h3 class="faq-title">Why should't we trust atoms?</h3>
+        <p class="faq-text">They make up everything</p>
+        <button>
+          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="faq">
+        <h3 class="faq-title">Why should't we trust atoms?</h3>
+        <p class="faq-text">They make up everything</p>
+        <button>
+          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <script>
+      const toggles = document.querySelectorAll('button')
+      toggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          toggle.parentNode.classList.toggle('is-active')
+        })
+      })
+    </script>
+  </body>
+</html>

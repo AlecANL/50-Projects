@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <title>Notes App</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .body {
+        font-family: 'Open Sans', sans-serif;
+        color: #333;
+        display: flex;
+        flex-wrap: wrap;
+        padding-top: 3rem;
+        background-color: #7bdaf3;
+      }
+
+      .add {
+        position: fixed;
+
+        top: 1rem;
+        right: 1rem;
+        background-color: #9ec862;
+        border-color: transparent;
+        padding: 0.5rem 1rem;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      button:active {
+        transform: scale(0.95);
+      }
+
+      .main {
+        padding: 1.25rem;
+      }
+
+      .note {
+        background-color: #fff;
+        box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.1);
+        margin: 30px 20px;
+        block-size: 400px;
+        inline-size: 400px;
+      }
+
+      .note .tools {
+        background-color: #9ec862;
+        display: flex;
+        justify-content: flex-end;
+        padding: 0.5rem;
+      }
+
+      .note .tools button {
+        background-color: transparent;
+        border-color: transparent;
+        color: #fff;
+        font-size: 1rem;
+        margin-left: 0.5rem;
+      }
+
+      .note textarea {
+        font-family: inherit;
+        font-size: 1.2rem;
+        border-color: transparent;
+        block-size: 25rem;
+        inline-size: 100%;
+        padding: 20px;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="body">
+    <button class="add" id="add">
+      <i class="fas fa-plus"></i>
+      <span>Add Note</span>
+    </button>
+    <!-- <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.17/marked.min.js"
+      integrity="sha512-vSD33WvMJMZwnOWxigzY4MmmUnGqY4APr91CZ4h3UTJ29AmZ8vW3WOwKycGptx7ow1f2SDYKLchv/qKnYHWI+w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+      const $addBtn = document.getElementById('add')
+
+      const notes = JSON.parse(localStorage.getItem('notes'))
+
+      if (notes) {
+        notes.forEach(note => addNewNote(note))
+      }
+
+      $addBtn.addEventListener('click', () => addNewNote())
+
+      function addNewNote(text = '') {
+        const note = document.createElement('div')
+        note.classList.add('note')
+
+        note.innerHTML = `
+             <div class="tools">
+            <button class="edit">
+                <i class="fas fa-edit"></i>
+            </button>
+            <button class="delete">
+                <div class="fas fa-trash-alt"></div>
+            </button>
+            </div>
+         <div class="main ${text ? '' : 'hidden'}"></div>
+         <textarea class="${text ? 'hidden' : ''}" name="note" id="noteText" cols="30" rows="10"></textarea>
+        
+        `
+
+        document.body.append(note)
+
+        const $editBtn = note.querySelector('.edit')
+        const $deleteBtn = note.querySelector('.delete')
+        const $main = note.querySelector('.main')
+        const $textArea = note.querySelector('textarea')
+
+        $textArea.value = text
+        $main.innerHTML = marked.parse(text)
+
+        $deleteBtn.addEventListener('click', () => {
+          note.remove()
+          updateList()
+        })
+
+        $editBtn.addEventListener('click', () => {
+          $main.classList.toggle('hidden')
+          $textArea.classList.toggle('hidden')
+        })
+
+        $textArea.addEventListener('input', e => {
+          const { value } = e.target
+          $main.innerHTML = marked.parse(value)
+          updateList()
+        })
+      }
+
+      function updateList() {
+        const notesText = document.querySelectorAll('textarea')
+        const notes = []
+
+        notesText.forEach(note => notes.push(note.value))
+
+        localStorage.setItem('notes', JSON.stringify(notes))
+      }
+    </script>
+  </body>
+</html>

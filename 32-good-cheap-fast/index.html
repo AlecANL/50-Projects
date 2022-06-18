@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <title>Good, Cheap, Fast Checkboxes</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .body {
+        font-family: 'Open Sans', sans-serif;
+        block-size: 100vh;
+        color: #333;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        block-size: 100vh;
+        padding: 0.625rem;
+        overflow: hidden;
+      }
+
+      .toggle-container {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        inline-size: 12.5rem;
+      }
+
+      .toggle {
+        visibility: hidden;
+      }
+      .label {
+        inline-size: 5rem;
+        block-size: 2.5rem;
+        background-color: #d0d0d0;
+        border-radius: 3.125rem;
+        margin: 0 15px 0;
+        display: inline-block;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .toggle:checked + .label {
+        background-color: #8e44ad;
+      }
+
+      .ball {
+        background-color: #fff;
+        block-size: 2.125rem;
+        inline-size: 2.125rem;
+        border-radius: 50%;
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        align-items: center;
+        justify-content: center;
+        animation: slideOff 0.3s linear forwards;
+      }
+
+      .toggle:checked + .label .ball {
+        animation: slideOn 0.3s linear forwards;
+      }
+
+      @keyframes slideOn {
+        0% {
+          transform: translateX(0) scale(1);
+        }
+        50% {
+          transform: translateX(20px) scale(1.2);
+        }
+
+        100% {
+          transform: translateX(40px) scale(1);
+        }
+      }
+
+      @keyframes slideOff {
+        0% {
+          transform: translateX(40px) scale(1);
+        }
+        50% {
+          transform: translateX(20px) scale(1.2);
+        }
+
+        100% {
+          transform: translateX(0) scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body class="body">
+    <h2>How do you want your project to be?</h2>
+
+    <div class="toggle-container">
+      <input class="toggle" type="checkbox" name="good" id="good" />
+      <label class="label" for="good">
+        <div class="ball"></div>
+      </label>
+      <span>Good</span>
+    </div>
+
+    <div class="toggle-container">
+      <input class="toggle" type="checkbox" name="cheap" id="cheap" />
+      <label class="label" for="cheap">
+        <div class="ball"></div>
+      </label>
+      <span>Cheap</span>
+    </div>
+
+    <div class="toggle-container">
+      <input class="toggle" type="checkbox" name="fast" id="fast" />
+      <label class="label" for="fast">
+        <div class="ball"></div>
+      </label>
+      <span>Fast</span>
+    </div>
+    <script>
+      const $toggles = document.querySelectorAll('.toggle')
+      const $good = document.getElementById('good')
+      const $cheap = document.getElementById('cheap')
+      const $fast = document.getElementById('fast')
+
+      $toggles.forEach($toggle => {
+        $toggle.addEventListener('change', e => doTheTrick(e.target))
+      })
+
+      function doTheTrick(isClickedOne) {
+        if ($good.checked && $cheap.checked && $fast.checked) {
+          if ($good === isClickedOne) {
+            $fast.checked = false
+          }
+          if ($cheap === isClickedOne) {
+            $good.checked = false
+          }
+          if ($fast === isClickedOne) {
+            $cheap.checked = false
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

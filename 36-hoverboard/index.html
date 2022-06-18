@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <title>Image Carousel</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .body {
+        font-family: 'Open Sans', sans-serif;
+        color: #333;
+        display: flex;
+        background-color: #111;
+        justify-content: center;
+        align-items: center;
+        block-size: 100vh;
+      }
+
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        max-width: 400px;
+      }
+
+      .square {
+        background-color: #1d1d1d;
+        box-shadow: 0 0 2px #000;
+        block-size: 1rem;
+        inline-size: 1rem;
+        margin: 2px;
+        transition: 2s ease;
+      }
+
+      .square:hover {
+        transition-duration: 0s;
+      }
+    </style>
+  </head>
+  <body class="body">
+    <div class="container" id="container"></div>
+    <script>
+      const $container = document.getElementById('container')
+      const colors = ['#e74c3c', '#8e44ad', '#3498db', '#e67e22', '#2ecc71']
+      const SQUARES = 500
+
+      for (let i = 0; i < SQUARES; i++) {
+        const $square = document.createElement('div')
+        $square.classList.add('square')
+        $square.addEventListener('mouseover', () => setColor($square))
+        $square.addEventListener('mouseout', () => removeColor($square))
+        $container.append($square)
+      }
+
+      function setColor($element) {
+        const color = getRandomColor()
+        $element.style.background = color
+        $element.style.boxShadow = `0 0 2px ${color}, 0 0 10px ${color} `
+      }
+
+      function removeColor($element) {
+        $element.style.background = '#1d1d1d'
+        $element.style.boxShadow = 'none'
+      }
+
+      function getRandomColor() {
+        return colors[Math.floor(Math.random() * colors.length)]
+      }
+    </script>
+  </body>
+</html>

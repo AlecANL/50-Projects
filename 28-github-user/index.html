@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <title>Github Profiles</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .body {
+        font-family: 'Open Sans', sans-serif;
+        block-size: 100vh;
+        background-color: #2a2a72;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        block-size: 100vh;
+        overflow: hidden;
+      }
+      .user-form {
+        inline-size: 100%;
+        max-inline-size: 43.75rem;
+      }
+
+      input {
+        inline-size: 100%;
+        display: block;
+        background-color: #4c2885;
+        border-color: transparent;
+        border-radius: 0.75rem;
+        color: #fff;
+        padding: 1rem;
+        margin-block-end: 2rem;
+        font-family: inherit;
+        font-size: 1rem;
+        box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05), 0 15px 40px rgba(0, 0, 0, 0.01);
+      }
+
+      .card {
+        max-inline-size: 50rem;
+        background-color: #4c2885;
+        border-radius: 1.25rem;
+        box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05), 0 15px 40px rgba(0, 0, 0, 0.01);
+        display: flex;
+        padding: 3rem;
+        margin: 0 1.5rem;
+      }
+      .avatar {
+        border-radius: 50%;
+        border: 10px solid #2a2a72;
+        block-size: 9.375rem;
+        inline-size: 9.375rem;
+      }
+
+      .user-info {
+        color: #eee;
+        margin-left: 2rem;
+      }
+
+      .user-info h2 {
+        margin-top: 0;
+      }
+
+      .user-info ul {
+        list-style-type: none;
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        padding-block: 2rem;
+        max-inline-size: 25rem;
+      }
+      .user-info li {
+        display: flex;
+        align-items: center;
+      }
+
+      .user-info strong {
+        font-size: 0.9rem;
+        margin-left: 0.5rem;
+      }
+
+      .repo {
+        text-decoration: none;
+        color: #fff;
+        background-color: #212a72;
+        font-size: 0.7rem;
+        padding: 0.25rem 0.5rem;
+        display: inline-block;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body class="body">
+    <form class="user-form" id="form">
+      <input type="search" name="search" id="search" aria-label="search" placeholder="Search a Github User" />
+    </form>
+
+    <main id="main"></main>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
+      integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      const API_URL = 'https://api.github.com/users'
+      const form = document.getElementById('form')
+      const search = document.getElementById('search')
+      const main = document.getElementById('main')
+
+      async function getUser(username) {
+        try {
+          const response = await axios(`${API_URL}/${username}`)
+          createUSerCard(response.data)
+          getRepos(username)
+        } catch (error) {
+          if (error.status === 404) {
+            createErrorCard(`No profile with ${username}`)
+          }
+        }
+      }
+
+      async function getRepos(username) {
+        try {
+          const response = await axios(`${API_URL}/${username}/repos`)
+          addReposToCard(response.data)
+        } catch (error) {
+          createErrorCard(`Problems fetching data`)
+        }
+      }
+
+      function addReposToCard(repos) {
+        const reposEl = document.getElementById('repos')
+        repos.forEach(repo => {
+          const repoLink = document.createElement('a')
+          repoLink.classList.add('repo')
+          repoLink.href = repo.html_url
+          repoLink.target = '_blank'
+          repoLink.textContent = repo.name
+          reposEl.append(repoLink)
+        })
+      }
+
+      function createErrorCard(message) {
+        const cardHTML = `
+                <div class="card">
+                    <h1>${message}</h1>    
+                </div>
+            
+            `
+
+        main.innerHTML = cardHTML
+      }
+
+      function createUSerCard(user) {
+        const cardHTML = `
+            <div class="card">
+            <div>
+                <img class="avatar" src="${user.avatar_url}" alt="${user.name}" />
+            </div>
+            <div class="user-info">
+                <h2>${user.name}</h2>
+                <p>
+                    ${user.bio}
+                </p>
+                <ul>
+                <li>${user.followers} <strong>Followers</strong></li>
+                <li>${user.following} <strong>Following</strong></li>
+                <li>${user.public_repos} <strong>Repos</strong></li>
+                </ul>
+
+                <div id="repos">
+
+                </div>
+            </div>
+            </div>
+        
+        `
+
+        main.innerHTML = cardHTML
+      }
+
+      form.addEventListener('submit', e => {
+        e.preventDefault()
+
+        const user = search.value
+
+        if (user) {
+          getUser(user)
+        }
+      })
+    </script>
+  </body>
+</html>

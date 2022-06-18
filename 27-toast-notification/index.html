@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <title>Toast Notification</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .body {
+        font-family: 'Open Sans', sans-serif;
+        block-size: 100vh;
+        background-color: rebeccapurple;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        block-size: 100vh;
+        overflow: hidden;
+      }
+
+      .btn {
+        background-color: #fff;
+        color: rebeccapurple;
+        font-family: inherit;
+        font-weight: bold;
+        padding: 1rem;
+        border-radius: 0.25rem;
+        border-color: transparent;
+        cursor: pointer;
+      }
+
+      .btn:active {
+        transform: scale(0.98);
+      }
+
+      #toasts {
+        position: fixed;
+        bottom: 0.625rem;
+        right: 10px;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      .toast {
+        color: rebeccapurple;
+        border-radius: 0.25rem;
+        padding: 1rem 2rem;
+        background-color: #fff;
+        margin: 0.5rem;
+      }
+
+      .toast.info {
+        color: rebeccapurple;
+      }
+      .toast.success {
+        color: green;
+      }
+      .toast.error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body class="body">
+    <div id="toasts"></div>
+    <button class="btn" id="button">Show Notification</button>
+    <script>
+      const button = document.getElementById('button')
+      const toasts = document.getElementById('toasts')
+
+      const messages = ['Message One', 'Message Two', 'Message Three', 'Message Four']
+
+      const types = ['success', 'info', 'error']
+
+      button.addEventListener('click', () => createNotification('This is a invalid data'))
+
+      function createNotification(message = null, type = null) {
+        const notify = document.createElement('div')
+        notify.classList.add('toast')
+        notify.classList.add(type ? type : getRandomTypes())
+
+        notify.innerText = messages ? message : gerRandomMessage()
+
+        toasts.append(notify)
+
+        setTimeout(() => {
+          notify.remove()
+        }, 3000)
+      }
+
+      function gerRandomMessage() {
+        return messages[Math.floor(Math.random() * messages.length)]
+      }
+
+      function getRandomTypes() {
+        return types[Math.floor(Math.random() * types.length)]
+      }
+    </script>
+  </body>
+</html>

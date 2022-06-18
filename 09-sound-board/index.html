@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@500;600&family=Quicksand:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Sound Board</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Mulish', sans-serif;
+        overflow: hidden;
+        block-size: 100vh;
+        background-color: rgba(161, 100, 223);
+      }
+
+      .btn {
+        background-color: rebeccapurple;
+        border-color: transparent;
+        padding: 1rem 1.5rem;
+        margin: 1rem;
+        border-radius: 0.3125rem;
+        color: #fff;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      .btn:active {
+        transform: scale(0.95);
+      }
+    </style>
+  </head>
+  <body class="body">
+    <audio id="applause" src="./sound-board_sounds_applause.mp3"></audio>
+    <audio id="boo" src="./sound-board_sounds_boo.mp3"></audio>
+    <audio id="gasp" src="./sound-board_sounds_gasp.mp3"></audio>
+    <audio id="tada" src="./sound-board_sounds_tada.mp3"></audio>
+    <audio id="victory" src="./sound-board_sounds_victory.mp3"></audio>
+    <audio id="wrong" src="./sound-board_sounds_wrong.mp3"></audio>
+    <div id="buttons"></div>
+    <script>
+      const sounds = ['applause', 'boo', 'gasp', 'tada', 'victory', 'wrong']
+      sounds.forEach(sound => {
+        const btn = document.createElement('button')
+        btn.classList.add('btn')
+        btn.addEventListener('click', () => {
+          playSound(sound)
+        })
+
+        btn.textContent = sound
+        document.getElementById('buttons').append(btn)
+      })
+
+      function playSound(soundId) {
+        const sound = document.getElementById(soundId)
+        sound.paused ? sound.play() : sound.pause()
+      }
+    </script>
+  </body>
+</html>

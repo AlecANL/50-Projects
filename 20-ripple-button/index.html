@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@500;600&family=Quicksand:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Effect Ripple Button</title>
+    <style>
+      :root {
+        --primary: #000;
+        --secondary: #fff;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        block-size: 100vh;
+        overflow: hidden;
+        font-family: 'Mulish', sans-serif;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        transition: 0.4s ease;
+        background-color: #333;
+      }
+      button {
+        background-color: cornflowerblue;
+        color: #fff;
+        border-color: transparent;
+        cursor: pointer;
+        border: none;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        padding: 20px 30px;
+        overflow: hidden;
+        margin: 10px 0;
+        position: relative;
+        border-radius: 4px;
+      }
+      button:active {
+        transform: scale(0.95);
+      }
+      button .circle {
+        position: absolute;
+        background-color: #fff;
+        inline-size: 100px;
+        block-size: 100px;
+        border-radius: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        animation: scale 0.5s ease-out;
+      }
+
+      @keyframes scale {
+        to {
+          transform: translate(-50%, -50%) scale(3);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body class="body">
+    <button class="ripple">Click me</button>
+    <script>
+      const $buttons = document.querySelectorAll('.ripple')
+
+      $buttons.forEach(data => {
+        data.addEventListener('click', e => {
+          const x = e.clientX
+          const y = e.clientY
+          const buttonTop = e.target.offsetTop
+          const buttonLeft = e.target.offsetLeft
+
+          const xInside = x - buttonLeft
+          const yInside = y - buttonTop
+
+          const $circle = document.createElement('span')
+          $circle.classList.add('circle')
+          $circle.style.top = `${yInside}px`
+          $circle.style.left = `${xInside}px`
+          data.append($circle)
+          setTimeout(() => {
+            $circle.remove()
+          }, 500)
+        })
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <title>Password Generator</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .body {
+        font-family: 'Open Sans', sans-serif;
+        block-size: 100vh;
+        background-color: #3b3b98;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        block-size: 100vh;
+        padding: 0.625rem;
+        overflow: hidden;
+      }
+      h2 {
+        margin: 10px 0 20px;
+        text-align: center;
+      }
+      .container {
+        background-color: #23235b;
+        box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.2);
+        padding: 1.25rem;
+        inline-size: 21.875rem;
+        max-inline-size: 100%;
+      }
+
+      .result-container {
+        background-color: rgba(0, 0, 0, 0.4);
+        /* display: flex; */
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        font-size: 1.125rem;
+        letter-spacing: 0.0625rem;
+        padding: 0.75rem 0.625rem;
+        block-size: 3.125rem;
+        inline-size: 100%;
+      }
+
+      #result {
+        word-wrap: break-word;
+        max-inline-size: calc(100% - 40px);
+      }
+      .result-container .btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        inline-size: 2.5rem;
+        block-size: 2.5rem;
+        font-size: 1.25rem;
+      }
+
+      .btn {
+        border: none;
+        background-color: #323b98;
+        color: #fff;
+        font-size: 1rem;
+        padding: 8px 0.75rem;
+        cursor: pointer;
+      }
+
+      .btn:active {
+        transform: scale(0.95);
+      }
+
+      .setting {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 15px 0;
+      }
+    </style>
+  </head>
+  <body class="body">
+    <div class="container">
+      <h2>Password Generator</h2>
+      <div class="result-container">
+        <span id="result" class="result"></span>
+        <button class="btn" id="clipboard">
+          <i class="far fa-clipboard"></i>
+        </button>
+      </div>
+      <div class="settings">
+        <div class="setting">
+          <label>Password length</label>
+          <input value="20" type="number" name="length" id="length" aria-label="length password" min="4" max="20" />
+        </div>
+
+        <div class="setting">
+          <label>Include Uppercase letters</label>
+          <input type="checkbox" id="uppercase" aria-label="uppercase letters" />
+        </div>
+
+        <div class="setting">
+          <label>Include Lowercase letters</label>
+          <input type="checkbox" id="lowercase" aria-label="lowercase letters" />
+        </div>
+
+        <div class="setting">
+          <label>Include numbers </label>
+          <input type="checkbox" id="numbers" aria-label="numbers letters" />
+        </div>
+
+        <div class="setting">
+          <label>Include symbols </label>
+          <input type="checkbox" id="symbols" aria-label="symbols letters" />
+        </div>
+        <button class="btn btn-large" id="generate">Generate Password</button>
+      </div>
+    </div>
+
+    <script>
+      const $result = document.getElementById('result')
+      const $length = document.getElementById('length')
+      const $uppercase = document.getElementById('uppercase')
+      const $lowercase = document.getElementById('lowercase')
+      const $numbers = document.getElementById('numbers')
+      const $symbols = document.getElementById('symbols')
+      const $generate = document.getElementById('generate')
+      const $clipboard = document.getElementById('clipboard')
+
+      function getRandomLower() {
+        return String.fromCharCode(Math.floor(Math.random() * 26) + 97)
+      }
+
+      function getRandomUpper() {
+        return String.fromCharCode(Math.floor(Math.random() * 26) + 65)
+      }
+
+      function getRandomNumber() {
+        return String.fromCharCode(Math.floor(Math.random() * 10) + 48)
+      }
+
+      function getRandomSymbol() {
+        const symbols = '!@#$%^&*()_+{}=<>/|/.;:,`"'
+        return symbols[Math.floor(Math.random() * symbols.length)]
+      }
+
+      const randomFn = {
+        isLower: getRandomLower,
+        isUpper: getRandomUpper,
+        isNumber: getRandomNumber,
+        isSymbol: getRandomSymbol,
+      }
+
+      $generate.addEventListener('click', () => {
+        const length = +$length.value
+
+        const hasLower = $lowercase.checked
+        const hasUpper = $uppercase.checked
+        const hasNumber = $numbers.checked
+        const hasSymbol = $symbols.checked
+
+        $result.textContent = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length)
+      })
+
+      $clipboard.addEventListener('click', () => {
+        const textarea = document.createElement('textarea')
+        const password = $result.textContent
+
+        if (!password) return
+
+        textarea.value = password
+        document.body.append(textarea)
+        textarea.select()
+        document.execCommand('copy')
+        textarea.remove()
+      })
+
+      function generatePassword(isLower, isUpper, isNumber, isSymbol, length) {
+        let pass = ''
+
+        const typesCount = isLower + isUpper + isNumber + isSymbol
+
+        const typesArr = [{ isLower }, { isUpper }, { isNumber }, { isSymbol }].filter(item => Object.values(item)[0])
+
+        if (typesCount === 0) {
+          return ''
+        }
+
+        for (let i = 0; i < length; i += typesCount) {
+          typesArr.forEach(type => {
+            const fn = Object.keys(type)[0]
+            pass += randomFn[fn]()
+          })
+        }
+        return pass.slice(0, length)
+      }
+    </script>
+  </body>
+</html>

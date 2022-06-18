@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@500;600&family=Quicksand:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Drag N Drop</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        block-size: 100vh;
+        overflow: hidden;
+        font-family: 'Mulish', sans-serif;
+        background-color: steelblue;
+      }
+
+      .empty {
+        block-size: 9.375rem;
+        inline-size: 9.375rem;
+        margin: 0.625rem;
+        border: solid 3px black;
+        background-color: #fff;
+      }
+
+      .fill {
+        background-image: url('https://source.unsplash.com/random/150x150');
+        block-size: 9.0625rem;
+        inline-size: 9.0625rem;
+        cursor: pointer;
+      }
+
+      .hold {
+        border: 5px solid #ccc;
+      }
+
+      .hovered {
+        background-color: #333;
+        border-color: #fff;
+        border-style: dashed;
+      }
+
+      @media screen and (min-width: 768px) {
+        .body {
+          flex-direction: row;
+        }
+      }
+    </style>
+  </head>
+  <body class="body">
+    <div class="empty">
+      <div class="fill" draggable="true"></div>
+    </div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <script>
+      const $fill = document.querySelector('.fill')
+      const $emptyList = document.querySelectorAll('.empty')
+
+      $fill.addEventListener('dragstart', dragStart)
+      $fill.addEventListener('dragend', dragEnd)
+
+      for (const $empty of $emptyList) {
+        $empty.addEventListener('dragover', dragOver)
+        $empty.addEventListener('dragenter', dragEnter)
+        $empty.addEventListener('dragleave', dragLeave)
+        $empty.addEventListener('drop', dragDrop)
+      }
+
+      function dragStart() {
+        this.className += ' hold'
+        setTimeout(
+          () => (this.className = 'invisible'),
+
+          0
+        )
+      }
+
+      function dragEnd() {
+        this.className = 'fill'
+      }
+      function dragOver(e) {
+        e.preventDefault()
+      }
+      function dragEnter(e) {
+        e.preventDefault()
+        this.className += ' hovered'
+      }
+      function dragLeave() {
+        this.className = 'empty'
+        console.log('dragLeave')
+      }
+      function dragDrop() {
+        this.className = 'empty'
+        this.append($fill)
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@500;600&family=Quicksand:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Blurry Loading Image</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --current-blur: 70px;
+      }
+      .body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        block-size: 100vh;
+        font-family: 'Mulish', sans-serif;
+      }
+      .bg {
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        inline-size: 100vw;
+        block-size: 100vh;
+        z-index: -1;
+        background-image: url('https://images.pexels.com/photos/871055/pexels-photo-871055.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        filter: blur(var(--current-blur));
+      }
+      .loading-text {
+        color: rgb(255, 255, 255);
+        font-size: 3.125rem;
+      }
+    </style>
+  </head>
+  <body class="body">
+    <section class="bg"></section>
+    <div class="loading-text">0%</div>
+    <script>
+      const textLoading = document.querySelector('.loading-text')
+      const bg = document.querySelector('.bg')
+      let load = 0
+      let int = setInterval(blurring, 30)
+
+      function blurring(params) {
+        load++
+        if (load > 99) {
+          clearInterval(int)
+        }
+        textLoading.textContent = `${load}%`
+        textLoading.style.opacity = scale(load, 0, 100, 1, 0)
+        document.documentElement.style.setProperty('--current-blur', `${scale(load, 0, 100, 30, 0)}px`)
+      }
+
+      function scale(num, in_min, in_max, out_min, out_max) {
+        return ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min
+      }
+    </script>
+  </body>
+</html>

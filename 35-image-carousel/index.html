@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <title>Image Carousel</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .body {
+        font-family: 'Open Sans', sans-serif;
+        color: #333;
+        display: flex;
+        background-color: #7bdaf3;
+        justify-content: center;
+        align-items: center;
+        block-size: 100vh;
+      }
+
+      .carousel {
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        block-size: 530px;
+        inline-size: 500px;
+        overflow: hidden;
+      }
+
+      .image-container {
+        display: flex;
+        transform: translateX(0);
+        transition: transform 0.5s ease-in-out;
+      }
+      .buttons-container {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      button {
+        background-color: rebeccapurple;
+        color: #fff;
+        border-color: transparent;
+        padding: 0.5rem;
+        cursor: pointer;
+        inline-size: 49.5%;
+      }
+
+      button:hover {
+        opacity: 0.9;
+      }
+
+      button:active {
+        transform: scale(0.95);
+      }
+
+      img {
+        inline-size: 500px;
+        block-size: 500px;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body class="body">
+    <div class="carousel">
+      <div class="image-container" id="imgs">
+        <img
+          src="https://images.unsplash.com/photo-1599394022918-6c2776530abb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1458&q=80"
+          alt="first-image"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"
+          alt="second-image"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1599423300746-b62533397364?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"
+          alt="third-image"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1599561046251-bfb9465b4c44?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1492&q=80"
+          alt="fourth-image"
+        />
+      </div>
+
+      <div class="buttons-container">
+        <button id="left">Prev</button>
+        <button id="right">Next</button>
+      </div>
+    </div>
+    <script>
+      const imgs = document.getElementById('imgs')
+      const leftBtn = document.getElementById('left')
+      const rightBtn = document.getElementById('right')
+
+      const img = document.querySelectorAll('#imgs img')
+
+      let idx = 0
+
+      let interval = setInterval(run, 2000)
+
+      function run() {
+        idx++
+        changeImage()
+      }
+
+      function changeImage() {
+        if (idx > img.length - 1) {
+          idx = 0
+        } else if (idx < 0) {
+          idx = img.length - 1
+        }
+
+        imgs.style.transform = `translateX(${-idx * 500}px)`
+      }
+
+      function resetInterval() {
+        clearInterval(interval)
+        interval = setInterval(run, 2000)
+      }
+
+      rightBtn.addEventListener('click', () => {
+        idx++
+        changeImage()
+        resetInterval()
+      })
+
+      leftBtn.addEventListener('click', () => {
+        idx--
+        changeImage()
+        resetInterval()
+      })
+    </script>
+  </body>
+</html>
